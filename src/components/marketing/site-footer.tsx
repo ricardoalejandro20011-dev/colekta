@@ -1,0 +1,81 @@
+import Link from 'next/link';
+import { Logo } from '@/components/brand/logo';
+
+const COLUMNAS = [
+  {
+    titulo: 'Producto',
+    links: [
+      { href: '/#casos', label: 'Para tu escuela' },
+      { href: '/#como', label: 'Cómo funciona' },
+      { href: '/#comision', label: 'Cómo se cobra la comisión' },
+      { href: '/planes', label: 'Planes y precios' },
+    ],
+  },
+  {
+    titulo: 'Tipos de escuela',
+    links: [
+      { href: '/#casos', label: 'Estancias infantiles y kínder' },
+      { href: '/#casos', label: 'Primaria y secundaria' },
+      { href: '/#casos', label: 'Prepa y universidad' },
+      { href: '/#casos', label: 'Academias y cursos' },
+    ],
+  },
+  {
+    titulo: 'Empezar',
+    links: [
+      { href: '/registro', label: 'Crear cuenta' },
+      { href: '/login', label: 'Entrar' },
+      { href: '/#faq', label: 'Preguntas frecuentes' },
+    ],
+  },
+];
+
+export function SiteFooter() {
+  return (
+    <footer className="border-t border-[#111111]/[0.08] bg-white">
+      <div className="mx-auto w-full max-w-[1180px] px-6 py-16">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-4">
+            <Logo />
+            <p className="mt-4 max-w-[26ch] text-[13px] leading-relaxed text-muted-foreground">
+              Toda escuela cobra a tiempo. Cobranza educativa para México, de la
+              estancia infantil de 40 alumnos a la universidad de 800.
+            </p>
+            <p className="mt-6 text-[12px] text-muted-foreground">
+              Pagos procesados por Mercado Pago México.
+            </p>
+          </div>
+
+          <div className="grid gap-10 sm:grid-cols-3 md:col-span-8">
+            {COLUMNAS.map((col) => (
+              <div key={col.titulo}>
+                <p className="eyebrow">{col.titulo}</p>
+                <ul className="mt-4 space-y-2.5">
+                  {col.links.map((l) => (
+                    <li key={l.label}>
+                      <Link
+                        href={l.href}
+                        className="text-[13px] text-muted-foreground transition-colors hover:text-ink"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14 flex flex-col gap-3 border-t border-[#111111]/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[12px] text-muted-foreground">
+            © {new Date().getFullYear()} COLEKTA. Hecho en México.
+          </p>
+          <p className="text-[12px] text-muted-foreground">
+            Toda escuela cobra a tiempo.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}

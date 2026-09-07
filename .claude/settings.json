@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:NEXT_PUBLIC_SUPABASE_URL=\"https://placeholder.supabase.co\"; $env:NEXT_PUBLIC_SUPABASE_ANON_KEY=\"placeholder\"; $env:SUPABASE_SERVICE_ROLE_KEY=\"placeholder\"; npm run build 2>&1 | Select-Object -Last 60)"
+    ]
+  }
+}
