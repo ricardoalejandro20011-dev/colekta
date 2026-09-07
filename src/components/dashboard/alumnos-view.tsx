@@ -645,7 +645,7 @@ export function AlumnosView({
               <Button
                 size="sm"
                 variant="ghost"
-                onClick={() => descargarTexto('plantilla-colekta.csv', CSV_PLANTILLA)}
+                onClick={() => descargarTexto('plantilla-kolek.csv', CSV_PLANTILLA)}
               >
                 <Download className="h-3.5 w-3.5" />
                 Plantilla

@@ -44,7 +44,7 @@ export function CheckoutBrick({
       if (window.MercadoPago) return;
       await new Promise<void>((resolve, reject) => {
         const existente = document.querySelector<HTMLScriptElement>(
-          'script[data-colekta-mp]',
+          'script[data-kolek-mp]',
         );
         if (existente) {
           existente.addEventListener('load', () => resolve());
@@ -54,7 +54,7 @@ export function CheckoutBrick({
         const s = document.createElement('script');
         s.src = 'https://sdk.mercadopago.com/js/v2';
         s.async = true;
-        s.dataset.colektaMp = 'true';
+        s.dataset.kolekMp = 'true';
         s.onload = () => resolve();
         s.onerror = () => reject(new Error('No se pudo cargar el SDK de Mercado Pago'));
         document.body.appendChild(s);
@@ -67,7 +67,7 @@ export function CheckoutBrick({
         if (cancelado || !window.MercadoPago) return;
 
         const mp = new window.MercadoPago(publicKey, { locale: 'es-MX' });
-        await mp.bricks().create('wallet', 'colekta-wallet', {
+        await mp.bricks().create('wallet', 'kolek-wallet', {
           initialization: { preferenceId },
           customization: {
             texts: { valueProp: 'security_safety' },
@@ -94,7 +94,7 @@ export function CheckoutBrick({
 
   return (
     <div className="space-y-3">
-      <div id="colekta-wallet" className="min-h-[52px]" />
+      <div id="kolek-wallet" className="min-h-[52px]" />
 
       {estado === 'cargando' && (
         <div className="flex items-center justify-center gap-2 rounded-[10px] border border-[#111111]/[0.09] bg-[#111111]/[0.02] px-4 py-3 text-[13px] text-muted-foreground">
@@ -113,7 +113,7 @@ export function CheckoutBrick({
       {estado === 'listo' && (
         <p className="flex items-center justify-center gap-1.5 text-[12px] text-muted-foreground">
           <ShieldCheck className="h-3.5 w-3.5" />
-          Pago protegido por Mercado Pago. COLEKTA no guarda datos de tu tarjeta.
+          Pago protegido por Mercado Pago. Kolek no guarda datos de tu tarjeta.
         </p>
       )}
     </div>

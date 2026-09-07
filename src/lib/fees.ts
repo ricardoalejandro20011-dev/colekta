@@ -1,9 +1,10 @@
 /**
- * COLEKTA — Motor de comisión.
+ * Kolek — Cálculo de comisión (fórmula fija de Mercado Pago, hoy).
  *
- * REGLA DE NEGOCIO INVIOLABLE:
- * El papá/tutor paga la comisión de Mercado Pago. La escuela SIEMPRE recibe
- * el monto limpio del concepto. COLEKTA nunca absorbe la comisión.
+ * COMPORTAMIENTO ACTUAL (a reemplazar por un PaymentFeeEngine configurable
+ * por escuela — ver auditoría entregada, sección "Motor de comisiones"):
+ * el tutor paga la comisión de Mercado Pago encima del concepto. La escuela
+ * recibe el monto limpio. Kolek nunca la absorbe.
  *
  *     total_a_cobrar = monto_concepto * 1.0406 + 3.48
  *

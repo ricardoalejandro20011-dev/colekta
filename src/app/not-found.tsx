@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Logo } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
+import { brand } from '@/config/brand';
 
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-[#111111]/[0.08] px-6 py-5">
-        <Link href="/" aria-label="COLEKTA">
+        <Link href="/" aria-label={brand.name}>
           <Logo />
         </Link>
       </header>

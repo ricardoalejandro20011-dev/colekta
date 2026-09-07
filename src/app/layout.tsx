@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
+import { brand } from '@/config/brand';
 import './globals.css';
 
 const inter = Inter({
@@ -12,25 +13,24 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: {
-    default: 'COLEKTA — Toda escuela cobra a tiempo',
-    template: '%s · COLEKTA',
+    default: `${brand.name} — ${brand.tagline}`,
+    template: `%s · ${brand.name}`,
   },
   description:
-    'Cobranza automatizada para escuelas de México. Genera links de pago, cóbralos por WhatsApp y mira en vivo quién ya pagó. Kínder, primaria, secundaria, prepa, universidad y academias.',
+    'Cobranza escolar preventiva para escuelas privadas de México: centraliza colegiaturas, automatiza recordatorios y concilia cada pago. Kínder, primaria, secundaria, prepa, universidad y academias.',
   keywords: [
     'cobranza escolar',
     'colegiaturas',
     'pagos escolares México',
-    'Mercado Pago escuelas',
+    'cobranza preventiva',
     'software para escuelas',
   ],
   openGraph: {
-    title: 'COLEKTA — Toda escuela cobra a tiempo',
-    description:
-      'Las escuelas pierden $42,000 al mes por cobrar por WhatsApp a mano. COLEKTA lo automatiza.',
+    title: `${brand.name} — ${brand.tagline}`,
+    description: 'Cobra colegiaturas sin perseguir pagos. Kolek automatiza recordatorios y concilia cada pago.',
     type: 'website',
     locale: 'es_MX',
-    siteName: 'COLEKTA',
+    siteName: brand.name,
   },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],

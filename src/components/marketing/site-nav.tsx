@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Logo } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
+import { brand } from '@/config/brand';
 import { cn } from '@/lib/utils';
 
 const LINKS = [
@@ -36,7 +37,7 @@ export function SiteNav() {
       )}
     >
       <div className="mx-auto flex h-16 w-full max-w-[1180px] items-center gap-8 px-6">
-        <Link href="/" className="shrink-0" aria-label="COLEKTA — inicio">
+        <Link href="/" className="shrink-0" aria-label={`${brand.name} — inicio`}>
           <Logo />
         </Link>
 
@@ -56,8 +57,11 @@ export function SiteNav() {
           <Button asChild variant="ghost" size="sm">
             <Link href="/login">Entrar</Link>
           </Button>
-          <Button asChild variant="brand" size="sm">
+          <Button asChild variant="outline" size="sm">
             <Link href="/registro">Crear cuenta</Link>
+          </Button>
+          <Button asChild variant="brand" size="sm">
+            <Link href="/demo">Solicitar demo</Link>
           </Button>
         </div>
 
@@ -86,12 +90,15 @@ export function SiteNav() {
               </Link>
             ))}
           </nav>
-          <div className="mt-3 flex gap-2">
-            <Button asChild variant="outline" size="sm" className="flex-1">
-              <Link href="/login">Entrar</Link>
-            </Button>
+          <div className="mt-3 flex flex-wrap gap-2">
             <Button asChild variant="brand" size="sm" className="flex-1">
+              <Link href="/demo">Solicitar demo</Link>
+            </Button>
+            <Button asChild variant="outline" size="sm" className="flex-1">
               <Link href="/registro">Crear cuenta</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="flex-1">
+              <Link href="/login">Entrar</Link>
             </Button>
           </div>
         </div>

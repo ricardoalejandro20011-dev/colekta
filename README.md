@@ -1,11 +1,17 @@
-# COLEKTA
+# Kolek
 
-**Toda escuela cobra a tiempo.**
+**Cobranza escolar preventiva.** Cobra antes, concilia automáticamente, persigue menos.
 
-SaaS B2B de cobranza educativa para México. Genera el link de pago de cada alumno, lo manda por
-WhatsApp y concilia solo cuando el tutor paga. Sirve igual para una estancia infantil de 40
-alumnos que para una universidad de 800: **nada está hardcodeado a "1ro a 6to"**, todos los
-grupos, conceptos y montos son configurables.
+SaaS B2B de cobranza para escuelas privadas de México — un producto de Ravela Group. NO es un
+ERP escolar ni reemplaza el sistema académico de la escuela: centraliza colegiaturas, automatiza
+recordatorios y concilia cada pago. Genera el link de pago de cada alumno, lo manda por WhatsApp
+y concilia solo cuando el tutor paga. Sirve igual para una estancia infantil de 40 alumnos que
+para una universidad de 800: **nada está hardcodeado a "1ro a 6to"**, todos los grupos, conceptos
+y montos son configurables.
+
+> El nombre de marca vive centralizado en [`src/config/brand.ts`](src/config/brand.ts). Tablas,
+> funciones SQL y algunos identificadores internos todavía dicen "colekta" porque así se llamaba
+> el producto antes — renombrarlos exige su propia migración y no cambia nada para el usuario.
 
 ---
 
@@ -153,7 +159,7 @@ En **Authentication › URL Configuration** pon tu `Site URL`
 
 ## 5. Mercado Pago en México: cómo sacar el access token
 
-COLEKTA soporta dos modos y el de la escuela siempre gana sobre el del `.env`:
+Kolek soporta dos modos y el de la escuela siempre gana sobre el del `.env`:
 
 - **Credenciales de plataforma** (`.env`) → útil para probar y para escuelas que aún no tienen
   cuenta propia.
@@ -165,7 +171,7 @@ COLEKTA soporta dos modos y el de la escuela siempre gana sobre el del `.env`:
 1. Entra a <https://www.mercadopago.com.mx/developers/panel> con la cuenta de Mercado Pago **de la
    escuela** (la misma donde quieren recibir el dinero).
 2. Clic en **Tus integraciones › Crear aplicación**.
-   - Nombre: `COLEKTA <nombre de la escuela>`
+   - Nombre: `Kolek <nombre de la escuela>`
    - Producto: **Pagos online**
    - Modelo de integración: **Checkout Pro / Bricks**
    - Plataforma: **No, estoy usando una solución propia**
@@ -174,11 +180,11 @@ COLEKTA soporta dos modos y el de la escuela siempre gana sobre el del `.env`:
    - `Access Token` (empieza con `TEST-`) → `MP_ACCESS_TOKEN`
 4. Cuando ya vayas a cobrar de verdad, repite con **Credenciales de producción**
    (`APP_USR-...`). Mercado Pago te va a pedir completar los datos fiscales de la escuela.
-5. Pega esas credenciales en **COLEKTA › Configuración › Integraciones › Mercado Pago**.
+5. Pega esas credenciales en **Kolek › Configuración › Integraciones › Mercado Pago**.
 
 ### 5.2 Webhook de pagos
 
-El `notification_url` se registra automáticamente en cada preference que crea COLEKTA:
+El `notification_url` se registra automáticamente en cada preference que crea Kolek:
 
 ```
 https://TU-DOMINIO/api/webhooks/mercadopago?school=<school_id>
@@ -192,7 +198,7 @@ No necesitas configurar nada más en el panel de MP. Si quieres **validar la fir
 1. Panel de MP › tu aplicación › **Webhooks › Configurar notificaciones**.
 2. Copia la **clave secreta** y ponla en `MP_WEBHOOK_SECRET`.
 
-COLEKTA valida el header `x-signature` con HMAC-SHA256 sobre el manifest
+Kolek valida el header `x-signature` con HMAC-SHA256 sobre el manifest
 `id:<data.id>;request-id:<x-request-id>;ts:<ts>;`. Si dejas la variable vacía no se valida firma,
 pero de todas formas **el pago se consulta contra la API de Mercado Pago**, que es la única
 fuente de verdad: nunca confiamos en el cuerpo del webhook.
@@ -242,7 +248,7 @@ recibir mensajes de prueba.
 El token temporal expira cada 24 h. Para producción necesitas un **usuario del sistema**:
 
 1. <https://business.facebook.com/settings> › **Usuarios › Usuarios del sistema › Agregar**.
-   - Nombre: `colekta-api`, Rol: **Administrador**.
+   - Nombre: `kolek-api`, Rol: **Administrador**.
 2. Clic en **Agregar activos** → selecciona tu **app de WhatsApp** y tu **cuenta de WhatsApp
    Business (WABA)** con control total.
 3. Clic en **Generar nuevo token**:
@@ -257,7 +263,7 @@ El token temporal expira cada 24 h. Para producción necesitas un **usuario del 
 1. En la app: **WhatsApp › Configuración › Webhooks › Editar**.
 2. **URL de devolución de llamada**: `https://TU-DOMINIO/api/webhooks/whatsapp`
 3. **Token de verificación**: el mismo valor que pusiste en `WHATSAPP_VERIFY_TOKEN`.
-4. Clic en **Verificar y guardar**. COLEKTA responde el `hub.challenge` automáticamente.
+4. Clic en **Verificar y guardar**. Kolek responde el `hub.challenge` automáticamente.
 5. En **Campos del webhook** suscríbete a **`messages`** (trae estados de entrega y respuestas de
    los tutores).
 6. Opcional pero recomendado: copia el **App Secret** (Configuración de la app › Básica) a
@@ -271,7 +277,7 @@ El token temporal expira cada 24 h. Para producción necesitas un **usuario del 
 Fuera de la ventana de 24 horas, Meta **solo permite plantillas**. Crea la tuya en
 <https://business.facebook.com/wa/manage/message-templates>:
 
-- **Nombre**: `colekta_link_pago` (el valor de `WHATSAPP_TEMPLATE_NAME`)
+- **Nombre**: `kolek_link_pago` (el valor de `WHATSAPP_TEMPLATE_NAME`)
 - **Categoría**: `Utility` / Utilidad
 - **Idioma**: `Español (MX)` → código `es_MX` (el valor de `WHATSAPP_TEMPLATE_LANG`)
 - **Cuerpo**, exactamente con 5 variables:
@@ -282,9 +288,9 @@ Hola {{1}}, te comparto el link de {{2}} de {{3}} por ${{4}}. Paga aquí: {{5}}
 
 - **Ejemplos** (Meta los exige para aprobar):
   `Mariana Solís` · `Colegiatura` · `Agosto 2026` · `2,552.95` ·
-  `https://colekta.mx/p/9f1c2b7e-...`
+  `https://kolek.mx/p/9f1c2b7e-...`
 
-La aprobación suele tardar de minutos a un par de horas. Mientras tanto, COLEKTA sigue en modo
+La aprobación suele tardar de minutos a un par de horas. Mientras tanto, Kolek sigue en modo
 cola sin perder ningún envío.
 
 ---
@@ -293,9 +299,9 @@ cola sin perder ningún envío.
 
 1. Crea cuenta en <https://resend.com> y verifica tu dominio en **Domains**.
 2. **API Keys › Create** → copia a `RESEND_API_KEY`.
-3. Pon el remitente verificado en `RESEND_FROM`, por ejemplo `COLEKTA <pagos@tuescuela.mx>`.
+3. Pon el remitente verificado en `RESEND_FROM`, por ejemplo `Kolek <pagos@tuescuela.mx>`.
 
-Si la variable está vacía, COLEKTA simplemente no manda correos. WhatsApp sigue siendo el canal
+Si la variable está vacía, Kolek simplemente no manda correos. WhatsApp sigue siendo el canal
 principal porque es el que de verdad leen los papás en México.
 
 ---
@@ -462,4 +468,4 @@ Los alumnos con estatus `baja` o `egresado` **no cuentan** para el límite del p
 
 ## Licencia
 
-Código propietario de COLEKTA. Todos los derechos reservados.
+Código propietario de Kolek. Todos los derechos reservados.

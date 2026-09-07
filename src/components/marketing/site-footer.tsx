@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Logo } from '@/components/brand/logo';
+import { brand } from '@/config/brand';
 
 const COLUMNAS = [
   {
@@ -7,7 +8,7 @@ const COLUMNAS = [
     links: [
       { href: '/#casos', label: 'Para tu escuela' },
       { href: '/#como', label: 'Cómo funciona' },
-      { href: '/#comision', label: 'Cómo se cobra la comisión' },
+      { href: '/#comision', label: 'Costos de procesamiento' },
       { href: '/planes', label: 'Planes y precios' },
     ],
   },
@@ -23,6 +24,7 @@ const COLUMNAS = [
   {
     titulo: 'Empezar',
     links: [
+      { href: '/demo', label: 'Solicitar demo' },
       { href: '/registro', label: 'Crear cuenta' },
       { href: '/login', label: 'Entrar' },
       { href: '/#faq', label: 'Preguntas frecuentes' },
@@ -38,11 +40,11 @@ export function SiteFooter() {
           <div className="md:col-span-4">
             <Logo />
             <p className="mt-4 max-w-[26ch] text-[13px] leading-relaxed text-muted-foreground">
-              Toda escuela cobra a tiempo. Cobranza educativa para México, de la
-              estancia infantil de 40 alumnos a la universidad de 800.
+              {brand.tagline}. Cobra antes, concilia automáticamente y persigue menos —
+              de la estancia infantil de 40 alumnos a la universidad de 800.
             </p>
             <p className="mt-6 text-[12px] text-muted-foreground">
-              Pagos procesados por Mercado Pago México.
+              No somos un ERP escolar. No reemplazamos tu sistema académico.
             </p>
           </div>
 
@@ -69,10 +71,18 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-[#111111]/[0.08] pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-muted-foreground">
-            © {new Date().getFullYear()} COLEKTA. Hecho en México.
+            © {new Date().getFullYear()} {brand.name}. Hecho en México.
           </p>
           <p className="text-[12px] text-muted-foreground">
-            Toda escuela cobra a tiempo.
+            {brand.name} ·{' '}
+            <a
+              href={brand.parentCompanyUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-ink"
+            >
+              {brand.footerLine}
+            </a>
           </p>
         </div>
       </div>

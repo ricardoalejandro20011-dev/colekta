@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { brand } from '@/config/brand';
 import { PLAN_POR_ID } from '@/lib/plans';
 import type { Profile, School } from '@/lib/types';
 
@@ -87,7 +88,7 @@ export async function POST(req: Request) {
 
   const admin = createAdminClient();
   // Contraseña temporal legible pero fuerte; el usuario la cambia al entrar.
-  const passwordTemporal = `Colekta-${crypto.randomBytes(6).toString('base64url')}`;
+  const passwordTemporal = `${brand.name}-${crypto.randomBytes(6).toString('base64url')}`;
 
   const { data: creado, error: errCrear } = await admin.auth.admin.createUser({
     email: body.email.trim().toLowerCase(),
@@ -101,7 +102,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error: msg.includes('already registered')
-          ? 'Ese correo ya tiene cuenta en COLEKTA. Pídele que entre y contáctanos para moverlo de escuela.'
+          ? `Ese correo ya tiene cuenta en ${brand.name}. Pídele que entre y contáctanos para moverlo de escuela.`
           : msg,
       },
       { status: 400 },

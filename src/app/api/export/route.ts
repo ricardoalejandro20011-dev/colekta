@@ -78,7 +78,7 @@ export async function GET(req: Request) {
   );
 
   const csv = '﻿' + [COLUMNAS.join(','), ...filas].join('\n');
-  const nombre = `colekta-${ciclo ?? 'todos'}-${status ?? 'todos'}.csv`;
+  const nombre = `kolek-${ciclo ?? 'todos'}-${status ?? 'todos'}.csv`;
 
   return new Response(csv, {
     headers: {

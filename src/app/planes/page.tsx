@@ -7,15 +7,16 @@ import {
   PricingCards,
   PricingComparativa,
   PricingMedida,
+  PricingNota,
 } from '@/components/marketing/pricing';
 import { Faq, type FaqItem } from '@/components/marketing/faq';
 import { Button } from '@/components/ui/button';
+import { brand } from '@/config/brand';
 import { desglose, formatMXN } from '@/lib/fees';
 
 export const metadata: Metadata = {
   title: 'Planes y precios',
-  description:
-    'COLEKTA cobra por número de alumnos, no por nivel educativo. Inicio $999, Crecimiento $1,899 y Pro $3,499 al mes.',
+  description: `${brand.name} cobra por número de alumnos, no por nivel educativo. Mini $790, Escuela $1,490 y Pro $2,490 al mes + IVA.`,
 };
 
 const FAQS_PLANES: FaqItem[] = [
@@ -23,9 +24,9 @@ const FAQS_PLANES: FaqItem[] = [
     q: '¿Por qué cobran por alumnos y no por nivel educativo?',
     a: (
       <p>
-        Porque el trabajo que hace COLEKTA es el mismo: generar un link, mandarlo y conciliar el
-        pago. Da igual si el alumno tiene 4 o 22 años. Cobrar por nivel castigaría a las
-        primarias grandes y regalaría el servicio a las universidades.
+        Porque el trabajo que hace {brand.name} es el mismo: generar un link, mandarlo y
+        conciliar el pago. Da igual si el alumno tiene 4 o 22 años. Cobrar por nivel castigaría a
+        las primarias grandes y regalaría el servicio a las universidades.
       </p>
     ),
   },
@@ -40,12 +41,13 @@ const FAQS_PLANES: FaqItem[] = [
     ),
   },
   {
-    q: '¿La mensualidad incluye la comisión de Mercado Pago?',
+    q: '¿La mensualidad incluye la comisión de procesamiento de pagos?',
     a: (
       <p>
-        Son cosas distintas. La mensualidad del plan es lo que le pagas a COLEKTA. La comisión
-        de Mercado Pago la paga el tutor encima del concepto ({formatMXN(2450)} de colegiatura →{' '}
-        {formatMXN(desglose(2450).total)} para el papá) y a tu escuela le llega el monto limpio.
+        No, son independientes. La mensualidad del plan es lo que le pagas a {brand.name}. El
+        costo de procesar cada pago lo cobra el proveedor de pagos (hoy Mercado Pago) y hoy se
+        suma encima del concepto — por ejemplo {formatMXN(2450)} de colegiatura →{' '}
+        {formatMXN(desglose(2450).total)} para el tutor — mostrado siempre antes de pagar.
       </p>
     ),
   },
@@ -104,6 +106,7 @@ export default function PlanesPage() {
         <section className="mx-auto w-full max-w-[1180px] px-6 py-16">
           <PricingCards />
           <PricingMedida />
+          <PricingNota />
         </section>
 
         <section className="border-y border-[#111111]/[0.08] bg-[#111111]/[0.015]">

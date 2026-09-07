@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { LogoMark } from '@/components/brand/logo';
 import { Button } from '@/components/ui/button';
+import { brand } from '@/config/brand';
 
 export default function LinkNoEncontrado() {
   return (
@@ -19,7 +20,7 @@ export default function LinkNoEncontrado() {
         </p>
 
         <Button asChild variant="outline" className="mt-6">
-          <Link href="/">Conocer COLEKTA</Link>
+          <Link href="/">Conocer {brand.name}</Link>
         </Button>
       </div>
     </div>

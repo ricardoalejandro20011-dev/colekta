@@ -7,6 +7,7 @@ import { asegurarPreferencia } from '@/lib/payments';
 import { esModoPrueba, getMpCreds } from '@/lib/mercadopago';
 import { CheckoutBrick } from '@/components/pago/checkout-brick';
 import { LogoMark } from '@/components/brand/logo';
+import { brand } from '@/config/brand';
 import { Badge } from '@/components/ui/badge';
 import { desglose, formatMXN } from '@/lib/fees';
 import { cicloLabel, formatFecha, formatFechaHora } from '@/lib/utils';
@@ -282,7 +283,7 @@ export default async function PagoPage({
         <p className="mt-6 flex items-center justify-center gap-1.5 text-[12px] text-muted-foreground">
           Cobranza gestionada con
           <LogoMark className="h-3.5 w-3.5" />
-          <span className="font-medium text-ink">COLEKTA</span>
+          <span className="font-medium text-ink">{brand.name}</span>
         </p>
       </main>
     </div>

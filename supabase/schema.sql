@@ -1,6 +1,11 @@
 -- ══════════════════════════════════════════════════════════════════════════
--- COLEKTA — Esquema de base de datos (Supabase / Postgres)
--- Toda escuela cobra a tiempo.
+-- KOLEK — Esquema de base de datos (Supabase / Postgres)
+-- Cobranza escolar preventiva. Un producto de Ravela Group.
+--
+-- Nota de nombres: las tablas y funciones se llaman igual que cuando el
+-- producto se llamaba Colekta (payments, marcar_atrasados, etc). Renombrarlas
+-- exigiría una migración aparte y no aporta nada al usuario final — el
+-- nombre visible del producto vive únicamente en src/config/brand.ts.
 --
 -- Ejecuta este archivo COMPLETO en:  Supabase Dashboard > SQL Editor > New query
 -- Es idempotente: lo puedes correr varias veces sin romper nada.
@@ -181,7 +186,9 @@ create index if not exists payments_venc_idx          on public.payments(school_
 comment on column public.payments.monto_concepto is
   'Monto limpio del concepto. ES LO QUE SE LE REPORTA A LA ESCUELA.';
 comment on column public.payments.monto_total_cobrado is
-  'monto_concepto * 1.0406 + 3.48 — la comisión de Mercado Pago la paga el tutor.';
+  'monto_concepto * 1.0406 + 3.48 (fórmula fija de Mercado Pago, hoy siempre a cargo '
+  'del tutor). Pendiente de mover a un PaymentFeeEngine configurable por escuela — '
+  'ver auditoría entregada: motor de comisiones es la siguiente fase, no está construido.';
 
 -- 2.7 whatsapp_logs ───────────────────────────────────────────────────────
 create table if not exists public.whatsapp_logs (
@@ -376,7 +383,7 @@ end $$;
 
 -- NOTA IMPORTANTE SOBRE LA PÁGINA PÚBLICA /p/[token]:
 -- El tutor NO está autenticado. En vez de abrir una política pública
--- (que dejaría enumerar pagos), COLEKTA lee ese pago desde el servidor con la
+-- (que dejaría enumerar pagos), Kolek lee ese pago desde el servidor con la
 -- service_role key filtrando por link_token (uuid v4, no adivinable).
 -- Así RLS sigue 100% cerrado para `anon`.
 
@@ -454,6 +461,26 @@ drop policy if exists "logos: actualizar autenticado" on storage.objects;
 create policy "logos: actualizar autenticado" on storage.objects
   for update to authenticated
   using (bucket_id = 'logos');
+
+-- ──────────────────────────────────────────────────────────────────────────
+-- 8. DEMO REQUESTS — captura del CTA "Solicitar demo" del sitio público
+-- ──────────────────────────────────────────────────────────────────────────
+-- Sin RLS abierta a nadie: se inserta y se lee únicamente desde el servidor
+-- con la service_role key (ver /api/demo-request). anon/authenticated no
+-- tienen ninguna política, así que quedan sin acceso por default-deny.
+create table if not exists public.demo_requests (
+  id                uuid primary key default gen_random_uuid(),
+  nombre            text not null,
+  escuela           text not null,
+  whatsapp          text not null,
+  alumnos_aprox     text not null,
+  atendido          boolean not null default false,
+  created_at        timestamptz not null default now()
+);
+
+alter table public.demo_requests enable row level security;
+
+create index if not exists demo_requests_created_idx on public.demo_requests(created_at desc);
 
 -- ══════════════════════════════════════════════════════════════════════════
 -- FIN. Si esto corrió sin errores, tu backend está listo.

@@ -18,6 +18,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { Logo } from '@/components/brand/logo';
+import { brand } from '@/config/brand';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -406,7 +407,7 @@ export function OnboardingWizard({
       {/* Encabezado con progreso */}
       <header className="sticky top-0 z-30 border-b border-[#111111]/[0.08] bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 w-full max-w-[1180px] items-center gap-6 px-6">
-          <Link href="/" aria-label="COLEKTA">
+          <Link href="/" aria-label={brand.name}>
             <Logo />
           </Link>
 
@@ -613,7 +614,7 @@ export function OnboardingWizard({
                 <h1 className="mt-3 text-display-md text-ink">Tus grupos y tus alumnos.</h1>
                 <p className="mt-3 max-w-[54ch] text-[15px] leading-relaxed text-muted-foreground">
                   Llámalos como los llamas todos los días: “1ro A”, “Avanzados Lunes”,
-                  “Cuatrimestre 3”, “Cinta Negra”. COLEKTA no asume nada.
+                  “Cuatrimestre 3”, “Cinta Negra”. {brand.name} no asume nada.
                 </p>
               </div>
               <div className="flex shrink-0 gap-6">
@@ -787,7 +788,7 @@ export function OnboardingWizard({
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() => descargarTexto('plantilla-colekta.csv', CSV_PLANTILLA)}
+                            onClick={() => descargarTexto('plantilla-kolek.csv', CSV_PLANTILLA)}
                           >
                             <Download className="h-3.5 w-3.5" />
                             Descargar plantilla

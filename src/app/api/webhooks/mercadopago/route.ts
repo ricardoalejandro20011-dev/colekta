@@ -157,5 +157,5 @@ export async function POST(req: Request) {
 
 /** MP a veces pega un GET para verificar que la URL responde. */
 export async function GET() {
-  return NextResponse.json({ ok: true, servicio: 'colekta-mercadopago-webhook' });
+  return NextResponse.json({ ok: true, servicio: 'kolek-mercadopago-webhook' });
 }

@@ -1,4 +1,5 @@
 import { APP_URL } from '@/lib/utils';
+import { brand } from '@/config/brand';
 
 const MP_API = 'https://api.mercadopago.com';
 
@@ -77,7 +78,7 @@ export async function crearPreferencia(
       },
     ],
     external_reference: input.paymentId,
-    statement_descriptor: 'COLEKTA',
+    statement_descriptor: brand.name.toUpperCase().slice(0, 22),
     binary_mode: true, // sin estado "in_process": o se aprueba o se rechaza
     back_urls: {
       success: `${APP_URL}/p/${input.linkToken}?estado=success`,
@@ -86,7 +87,7 @@ export async function crearPreferencia(
     },
     auto_return: 'approved',
     notification_url: `${APP_URL}/api/webhooks/mercadopago?school=${input.schoolId}`,
-    metadata: { payment_id: input.paymentId, origen: 'colekta' },
+    metadata: { payment_id: input.paymentId, origen: brand.name.toLowerCase() },
   };
 
   if (input.emailTutor || input.nombreTutor) {
@@ -108,7 +109,10 @@ export async function crearPreferencia(
       Authorization: `Bearer ${input.accessToken}`,
       'Content-Type': 'application/json',
       // Evita preferences duplicadas si reintentamos el mismo pago.
-      'X-Idempotency-Key': `colekta-pref-${input.paymentId}`,
+      // OJO: una vez en producción con tráfico real, este prefijo ya no debe
+      // volver a cambiar — cambiarlo generaría una key nueva para reintentos
+      // de pagos que ya tenían una preference en vuelo.
+      'X-Idempotency-Key': `kolek-pref-${input.paymentId}`,
     },
     body: JSON.stringify(body),
     cache: 'no-store',
@@ -155,7 +159,7 @@ export async function obtenerPago(
   return (await res.json()) as MpPayment;
 }
 
-/** Traduce el status de MP al status interno de COLEKTA. */
+/** Traduce el status de MP al status interno de Kolek. */
 export function mapEstadoMp(status: string): 'pagado' | 'pendiente' | 'atrasado' {
   if (status === 'approved') return 'pagado';
   if (['rejected', 'cancelled', 'refunded', 'charged_back'].includes(status)) {

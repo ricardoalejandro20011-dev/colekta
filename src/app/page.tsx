@@ -18,10 +18,11 @@ import {
 import { SiteNav } from '@/components/marketing/site-nav';
 import { SiteFooter } from '@/components/marketing/site-footer';
 import { DashboardPreview } from '@/components/marketing/dashboard-preview';
-import { PricingCards, PricingMedida } from '@/components/marketing/pricing';
+import { PricingCards, PricingMedida, PricingNota } from '@/components/marketing/pricing';
 import { Faq, type FaqItem } from '@/components/marketing/faq';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { brand } from '@/config/brand';
 import { desglose, formatMXN } from '@/lib/fees';
 
 /* ────────────────────────────────────────────────────────────────────────
@@ -83,14 +84,13 @@ const PASOS = [
     n: '01',
     titulo: 'Carga tu escuela en minutos',
     texto:
-      'Creas tus grupos con el nombre que uses de verdad —"1ro A", "Avanzados Lunes", "Cinta Negra"— y subes a los alumnos con un CSV. 500 alumnos en menos de 15 minutos.',
+      'Creas tus grupos con el nombre que uses de verdad —"1ro A", "Avanzados Lunes", "Cinta Negra"— y subes a los alumnos con un CSV.',
     Icon: FileSpreadsheet,
   },
   {
     n: '02',
     titulo: 'Genera el ciclo completo de un jalón',
-    texto:
-      'Eliges concepto, mes y grupos. COLEKTA crea el pago de cada alumno activo, con su link único de Mercado Pago y su fecha de vencimiento.',
+    texto: `Eliges concepto, mes y grupos. ${brand.name} crea el pago de cada alumno activo, con su link único de pago y su fecha de vencimiento.`,
     Icon: Link2,
   },
   {
@@ -104,29 +104,31 @@ const PASOS = [
 
 const FAQS: FaqItem[] = [
   {
-    q: '¿Y la comisión de Mercado Pago? ¿Me la descuentan a mí?',
+    q: '¿Y la comisión de procesamiento? ¿Me la descuentan a mí?',
     a: (
       <>
         <p>
-          No. En COLEKTA la comisión la paga el tutor, no la escuela. Al generar el link
-          calculamos <strong className="text-ink">monto × 1.0406 + $3.48</strong> y ese es el
-          total que ve el papá. A ti te reportamos y te llega el monto limpio del concepto.
+          Cada escuela decide cómo manejar el costo de procesamiento: que lo absorba la escuela,
+          el tutor, o que se reparta entre ambos. Hoy, con Mercado Pago como proveedor, la
+          fórmula vigente es <strong className="text-ink">monto × 1.0406 + $3.48</strong> a cargo
+          del tutor por default — y siempre se muestra el desglose completo antes de pagar.
         </p>
         <p>
-          Si la colegiatura es de {formatMXN(2450)}, el tutor paga{' '}
-          {formatMXN(desglose(2450).total)} y tu escuela recibe {formatMXN(2450)}. El desglose
-          aparece completo en la página de pago para que nadie se lleve sorpresas.
+          Si la colegiatura es de {formatMXN(2450)}, hoy el tutor pagaría{' '}
+          {formatMXN(desglose(2450).total)} y tu escuela recibe {formatMXN(2450)} íntegros. Nadie
+          se lleva sorpresas: el costo se ve antes de confirmar el pago.
         </p>
       </>
     ),
   },
   {
-    q: '¿El dinero cae a mi cuenta o a la de COLEKTA?',
+    q: `¿El dinero cae a mi cuenta o a la de ${brand.name}?`,
     a: (
       <p>
-        Directo a la cuenta de Mercado Pago de tu escuela. En Configuración pegas tu propio{' '}
-        <em>access token</em> y a partir de ahí todos los cobros se procesan con tus
-        credenciales. COLEKTA nunca toca tu dinero; te cobramos aparte la mensualidad del plan.
+        Directo a la cuenta de tu escuela con el proveedor de pagos que conectes (hoy Mercado
+        Pago). En Configuración pegas tu propio <em>access token</em> y a partir de ahí todos los
+        cobros se procesan con tus credenciales. {brand.name} nunca concentra el dinero de las
+        escuelas; te cobramos aparte la mensualidad del plan.
       </p>
     ),
   },
@@ -145,7 +147,7 @@ const FAQS: FaqItem[] = [
     a: (
       <>
         <p>
-          No es obligatorio para empezar. Si todavía no tienes el token de Meta, COLEKTA deja
+          No es obligatorio para empezar. Si todavía no tienes el token de Meta, {brand.name} deja
           cada mensaje listo en la bandeja de WhatsApp con el texto y el link ya armados, y lo
           mandas desde tu celular con un clic.
         </p>
@@ -218,72 +220,60 @@ export default function LandingPage() {
               <div className="animate-fade-up lg:col-span-5">
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#111111]/10 bg-white px-3 py-1 shadow-subtle">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  <span className="text-[12px] text-muted-foreground">
-                    Cobranza educativa para todo México
-                  </span>
+                  <span className="text-[12px] text-muted-foreground">{brand.tagline}</span>
                 </div>
 
                 <h1 className="mt-6 text-[2.6rem] font-[640] leading-[1.03] tracking-[-0.042em] text-ink sm:text-[3.1rem]">
-                  Escuelas pierden{' '}
-                  <span className="relative whitespace-nowrap">
-                    <span className="relative z-10">$42,000</span>
-                    <span className="absolute inset-x-0 bottom-1 z-0 h-3 bg-brand-200/70" />
-                  </span>{' '}
-                  al mes por cobrar por WhatsApp.
-                  <br className="hidden sm:block" />
-                  <span className="text-muted-foreground"> Nosotras lo automatizamos.</span>
+                  Cobra colegiaturas sin perseguir pagos.
                 </h1>
 
                 <p className="mt-6 max-w-[46ch] text-[15px] leading-relaxed text-muted-foreground">
-                  COLEKTA genera el link de pago de cada alumno, lo manda por WhatsApp y marca
-                  quién ya pagó en tiempo real. Sin cuadernos, sin capturar transferencias, sin
-                  perseguir papás.
+                  {brand.name} automatiza recordatorios, concilia cada pago y te muestra quién
+                  está al corriente, quién está por vencer y quién necesita seguimiento.
+                </p>
+
+                <p className="mt-3 max-w-[46ch] text-[13px] leading-relaxed text-ink/70">
+                  {brand.positioning}
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Button asChild size="lg" variant="brand">
-                    <Link href="/registro">
-                      Crear cuenta gratis
+                    <Link href="/demo">
+                      Solicitar demo
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                   <Button asChild size="lg" variant="outline">
-                    <Link href="/planes">Ver planes y precios</Link>
+                    <Link href="/#como">Ver cómo funciona</Link>
                   </Button>
                 </div>
 
                 <p className="mt-4 text-[12px] leading-relaxed text-muted-foreground">
-                  Sin tarjeta para empezar · Configuras tu escuela en menos de 15 minutos
+                  ¿Prefieres explorarlo tú mismo?{' '}
+                  <Link href="/registro" className="font-medium text-ink underline underline-offset-2">
+                    Crea una cuenta gratis
+                  </Link>
                 </p>
 
-                {/* Nota editorial que sustenta la cifra */}
-                <div className="mt-10 border-l-2 border-brand-500 pl-4">
-                  <p className="text-[12px] leading-relaxed text-muted-foreground">
-                    <span className="font-medium text-ink">De dónde sale la cifra:</span> una
-                    primaria de 180 alumnos con colegiatura de {formatMXN(2450)} y 9.5 % de
-                    morosidad deja de cobrar ≈ {formatMXN(41895)} cada mes, más las horas
-                    administrativas de perseguirlo.
-                  </p>
-                </div>
+                {/* Trust row */}
+                <ul className="mt-10 grid max-w-[46ch] grid-cols-2 gap-x-4 gap-y-2.5">
+                  {[
+                    'Cobranza preventiva',
+                    'Conciliación automática',
+                    'Dinero directo a tu escuela',
+                    'Hecho para México',
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-1.5 text-[12px] text-muted-foreground">
+                      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-500" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Preview — 7 columnas, se sale del margen a la derecha */}
               <div className="animate-fade-up lg:col-span-7 lg:-mr-24 xl:-mr-32">
                 <DashboardPreview />
-                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-muted-foreground">
-                  <span className="inline-flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-brand-500" />
-                    Dashboard real, no una imagen
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-brand-500" />
-                    400+ pagos sin lag
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-brand-500" />
-                    Comisión ya calculada
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -317,7 +307,7 @@ export default function LandingPage() {
                 Una primaria y un curso de karate cobran igual de mal.
               </h2>
               <p className="mt-5 max-w-[38ch] text-[15px] leading-relaxed text-muted-foreground">
-                Por eso COLEKTA no asume nada sobre tu estructura. No hay grados fijos ni
+                Por eso {brand.name} no asume nada sobre tu estructura. No hay grados fijos ni
                 niveles obligatorios: tú defines los grupos, los conceptos y los montos.
               </p>
             </div>
@@ -350,7 +340,7 @@ export default function LandingPage() {
                       {c.dolor}
                     </p>
                     <p className="text-[13px] leading-relaxed text-ink/85">
-                      <span className="font-medium text-brand-600">Con COLEKTA · </span>
+                      <span className="font-medium text-brand-600">Con {brand.name} · </span>
                       {c.solucion}
                     </p>
                   </div>
@@ -400,19 +390,20 @@ export default function LandingPage() {
             <div className="lg:col-span-6">
               <p className="eyebrow">La pregunta que siempre nos hacen</p>
               <h2 className="mt-4 text-display-md text-ink">
-                La comisión la paga el tutor. A la escuela le llega limpio.
+                Cada escuela decide cómo manejar los costos de procesamiento.
               </h2>
               <p className="mt-5 max-w-[46ch] text-[15px] leading-relaxed text-muted-foreground">
-                Es la diferencia entre cobrar en línea y perder dinero por cobrar en línea. Al
-                generar el link, COLEKTA suma la comisión de Mercado Pago encima del concepto y
-                la muestra desglosada al papá. Tu estado de cuenta no se toca.
+                La escuela absorbe, el tutor absorbe, o se reparte entre ambos: esa configuración
+                por escuela está en construcción. Hoy, con Mercado Pago como único proveedor
+                activo, el costo se suma encima del concepto por default y se muestra desglosado
+                al tutor antes de pagar. Tu estado de cuenta no se toca.
               </p>
 
               <dl className="mt-8 space-y-3">
                 {[
-                  ['Fórmula aplicada', 'monto × 1.0406 + $3.48'],
-                  ['Lo que reporta COLEKTA a la escuela', 'Siempre el monto limpio del concepto'],
-                  ['Quién absorbe la comisión', 'El tutor, con desglose visible antes de pagar'],
+                  ['Fórmula vigente hoy (Mercado Pago)', 'monto × 1.0406 + $3.48'],
+                  [`Lo que reporta ${brand.name} a la escuela`, 'Siempre el monto limpio del concepto'],
+                  ['Quién absorbe el costo hoy', 'El tutor, por default — elegirlo por escuela viene en camino'],
                 ].map(([k, v]) => (
                   <div
                     key={k}
@@ -430,11 +421,11 @@ export default function LandingPage() {
               <div className="rounded-[12px] border border-[#111111]/[0.09] bg-white p-7 shadow-card">
                 <div className="flex items-center justify-between">
                   <p className="eyebrow">Lo que ve el tutor</p>
-                  <Badge variant="brand">Ejemplo real</Badge>
+                  <Badge variant="brand">Ejemplo de cálculo</Badge>
                 </div>
 
                 <p className="mt-5 text-[13px] text-muted-foreground">
-                  Renata Ibarra Solís · 3ro B
+                  Alumno ejemplo · 3ro B
                 </p>
                 <p className="text-[15px] font-semibold tracking-[-0.01em]">
                   Colegiatura · Agosto 2026
@@ -498,30 +489,34 @@ export default function LandingPage() {
             <div className="mt-12">
               <PricingCards />
               <PricingMedida />
+              <PricingNota />
             </div>
           </div>
         </section>
 
-        {/* ── PRÓXIMAMENTE ────────────────────────────────────────────── */}
+        {/* ── EN CAMINO ───────────────────────────────────────────────── */}
         <section className="mx-auto w-full max-w-[1180px] px-6 py-20">
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <p className="eyebrow">En camino</p>
               <h2 className="mt-4 text-display-sm text-ink">
-                Lo que sigue después de cobrar a tiempo.
+                Después de cobrar a tiempo, seguimos con más cobranza.
               </h2>
+              <p className="mt-3 max-w-[36ch] text-[13px] leading-relaxed text-muted-foreground">
+                Sin distracciones: nada de tiendas ni financiamientos. Solo mejor cobranza.
+              </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
               {[
                 {
-                  titulo: 'Financiamiento a papás a meses',
+                  titulo: 'Transferencia SPEI recomendada',
                   texto:
-                    'El tutor difiere la colegiatura en pagos chicos; la escuela recibe el total completo desde el día uno.',
+                    'CLABE referenciada por familia y conciliación automática del depósito, sin comisión de tarjeta.',
                 },
                 {
-                  titulo: 'Tienda de uniformes',
+                  titulo: 'Vista "Cobranza de hoy"',
                   texto:
-                    'Uniformes, libros y material escolar en el mismo link de pago que ya usa el papá.',
+                    'Quién vence hoy, quién está atrasado y quién prometió pagar — con un botón para actuar en cada caso.',
                 },
               ].map((x) => (
                 <div
@@ -586,8 +581,8 @@ export default function LandingPage() {
               </div>
               <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
                 <Button asChild size="lg" variant="brand">
-                  <Link href="/registro">
-                    Crear cuenta gratis
+                  <Link href="/demo">
+                    Solicitar demo
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>

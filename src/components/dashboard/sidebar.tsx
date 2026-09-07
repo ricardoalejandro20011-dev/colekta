@@ -12,7 +12,7 @@ import {
   Users,
 } from 'lucide-react';
 import { Logo } from '@/components/brand/logo';
-import { Badge } from '@/components/ui/badge';
+import { brand } from '@/config/brand';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -62,7 +62,7 @@ export function Sidebar({
   return (
     <aside className="flex h-full w-full flex-col border-r border-[#111111]/[0.08] bg-[#111111]/[0.012]">
       <div className="flex h-16 shrink-0 items-center px-5">
-        <Link href="/dashboard" aria-label="COLEKTA">
+        <Link href="/dashboard" aria-label={brand.name}>
           <Logo />
         </Link>
       </div>
@@ -132,16 +132,6 @@ export function Sidebar({
             );
           })}
         </ul>
-
-        <div className="mt-6 rounded-[10px] border border-dashed border-[#111111]/12 p-3">
-          <p className="text-[11px] font-medium text-ink">Financiamiento a papás</p>
-          <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-            Que difieran la colegiatura a meses sin que la escuela espere.
-          </p>
-          <Badge variant="neutral" className="mt-2">
-            Próximamente
-          </Badge>
-        </div>
       </nav>
 
       {/* Usuario */}
@@ -149,7 +139,7 @@ export function Sidebar({
         <DropdownMenu>
           <DropdownMenuTrigger className="flex w-full items-center gap-2.5 rounded-[9px] px-2 py-2 text-left transition-colors hover:bg-[#111111]/[0.04]">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ink text-[10px] font-semibold text-white">
-              {initials(nombreUsuario || email || 'CO')}
+              {initials(nombreUsuario || email || 'KO')}
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-[12px] font-medium text-ink">

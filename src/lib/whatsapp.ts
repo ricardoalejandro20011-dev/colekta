@@ -70,7 +70,7 @@ export async function enviarTemplate(
     return { ok: false, waMessageId: null, error: `Teléfono inválido: ${telefono}` };
   }
 
-  const nombre = process.env.WHATSAPP_TEMPLATE_NAME || 'colekta_link_pago';
+  const nombre = process.env.WHATSAPP_TEMPLATE_NAME || 'kolek_link_pago';
   const lang = process.env.WHATSAPP_TEMPLATE_LANG || 'es_MX';
 
   const payload = {

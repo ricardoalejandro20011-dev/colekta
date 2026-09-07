@@ -1,8 +1,12 @@
 import { cn } from '@/lib/utils';
+import { brand } from '@/config/brand';
 
 /**
- * Marca COLEKTA: una C que se convierte en palomita de "pagado",
+ * Marca de Kolek: una C que se convierte en palomita de "pagado",
  * trazada en una sola línea continua. Hereda currentColor.
+ *
+ * El trazo se mantiene aunque el nombre cambie — es el símbolo, no la
+ * palabra, lo que identifica el producto en favicons y espacios chicos.
  */
 export function LogoMark({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
@@ -39,7 +43,7 @@ export function Logo({
       <LogoMark className={cn('h-[22px] w-[22px]', markClassName)} />
       {showWordmark && (
         <span className="text-[15px] font-semibold tracking-[-0.02em] text-ink">
-          COLEKTA
+          {brand.name}
         </span>
       )}
     </span>

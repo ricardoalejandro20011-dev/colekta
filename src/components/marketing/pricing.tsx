@@ -5,6 +5,16 @@ import { Badge } from '@/components/ui/badge';
 import { PLANES, COMPARATIVA } from '@/lib/plans';
 import { cn } from '@/lib/utils';
 
+export function PricingNota() {
+  return (
+    <p className="mt-6 text-center text-[12px] leading-relaxed text-muted-foreground">
+      La mensualidad de Kolek y los costos del proveedor de pagos son independientes. La
+      comisión de procesamiento se muestra siempre antes de pagar y cada escuela decide cómo
+      manejarla.
+    </p>
+  );
+}
+
 export function PricingCards({ ctaHref = '/registro' }: { ctaHref?: string }) {
   return (
     <div className="grid gap-4 lg:grid-cols-3">
@@ -33,7 +43,7 @@ export function PricingCards({ ctaHref = '/registro' }: { ctaHref?: string }) {
             <span className="tnum text-[38px] font-semibold leading-none tracking-[-0.035em]">
               ${plan.precio.toLocaleString('es-MX')}
             </span>
-            <span className="text-[13px] text-muted-foreground">MXN / mes</span>
+            <span className="text-[13px] text-muted-foreground">MXN + IVA / mes</span>
           </div>
 
           <p className="mt-3 min-h-[38px] text-[13px] leading-relaxed text-muted-foreground">

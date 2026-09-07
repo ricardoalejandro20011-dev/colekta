@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Check } from 'lucide-react';
 import { Logo } from '@/components/brand/logo';
+import { brand } from '@/config/brand';
 import { formatMXN, desglose } from '@/lib/fees';
 
 /**
@@ -24,7 +25,7 @@ export function AuthShell({
     <div className="grid min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)]">
       {/* Formulario */}
       <div className="flex flex-col px-6 py-10 sm:px-12 lg:px-16">
-        <Link href="/" className="inline-flex w-fit" aria-label="COLEKTA — inicio">
+        <Link href="/" className="inline-flex w-fit" aria-label={`${brand.name} — inicio`}>
           <Logo />
         </Link>
 
@@ -38,7 +39,7 @@ export function AuthShell({
         </div>
 
         <p className="text-[12px] text-muted-foreground">
-          © {new Date().getFullYear()} COLEKTA · Toda escuela cobra a tiempo.
+          © {new Date().getFullYear()} {brand.name} · {brand.tagline}.
         </p>
       </div>
 
@@ -46,9 +47,9 @@ export function AuthShell({
       <aside className="relative hidden overflow-hidden border-l border-[#111111]/[0.08] bg-[#111111]/[0.015] lg:block">
         <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" />
         <div className="relative flex h-full flex-col justify-center px-14">
-          <p className="eyebrow">Por qué las escuelas cambian</p>
-          <h2 className="mt-4 max-w-[18ch] text-display-sm text-ink">
-            La comisión la paga el tutor. Siempre.
+          <p className="eyebrow">Cómo se reparte el costo de procesar el pago</p>
+          <h2 className="mt-4 max-w-[22ch] text-display-sm text-ink">
+            Cada escuela decide cómo manejar los costos de procesamiento.
           </h2>
 
           <div className="mt-8 max-w-[360px] rounded-[12px] border border-[#111111]/[0.09] bg-white p-6 shadow-card">

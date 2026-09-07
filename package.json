@@ -1,8 +1,8 @@
 {
-  "name": "colekta",
+  "name": "kolek",
   "version": "1.0.0",
   "private": true,
-  "description": "COLEKTA — Toda escuela cobra a tiempo. SaaS de cobranza educativa para México.",
+  "description": "Kolek — Cobranza escolar preventiva. Un producto de Ravela Group.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,11 +1,15 @@
 import { Check, Clock, Search, TriangleAlert } from 'lucide-react';
 import { LogoMark } from '@/components/brand/logo';
+import { brand } from '@/config/brand';
 import { calcTotalConComision, formatMXN, formatMXNCompact } from '@/lib/fees';
 import { cn } from '@/lib/utils';
 
 /**
  * Preview del dashboard real: mismos componentes, mismo cálculo de comisión,
- * mismos estados. No es una imagen ni un mockup pintado.
+ * mismos estados. No es una imagen ni un mockup pintado — pero los datos
+ * (escuela, alumnos, montos) son 100% simulados. Nunca deben leerse como un
+ * caso real o un colegio verdadero: por eso lleva "Escuela Demo" y la
+ * etiqueta de simulación visibles.
  */
 
 const FILAS = [
@@ -61,14 +65,19 @@ export function DashboardPreview({ className }: { className?: string }) {
         'w-full overflow-hidden rounded-[12px] border border-[#111111]/[0.09] bg-white shadow-float',
         className,
       )}
-      aria-label="Vista previa del dashboard de COLEKTA"
+      aria-label={`Vista previa del dashboard de ${brand.name} — simulación con datos demostrativos`}
     >
+      {/* Aviso de simulación */}
+      <div className="flex items-center justify-between gap-2 border-b border-amber-200 bg-amber-50 px-4 py-1.5">
+        <span className="text-[10px] font-medium uppercase tracking-[0.08em] text-amber-800">
+          Simulación · Datos demostrativos
+        </span>
+      </div>
+
       {/* Barra superior */}
       <div className="flex items-center gap-3 border-b border-[#111111]/[0.07] px-4 py-2.5">
         <LogoMark className="h-4 w-4" />
-        <span className="text-[12px] font-semibold tracking-[-0.01em]">
-          Colegio Ignacio Zaragoza
-        </span>
+        <span className="text-[12px] font-semibold tracking-[-0.01em]">Escuela Demo</span>
         <span className="rounded-full border border-[#111111]/10 px-2 py-0.5 text-[10px] text-muted-foreground">
           Primaria · 214 alumnos
         </span>

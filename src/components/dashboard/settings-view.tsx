@@ -43,6 +43,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { createClient } from '@/lib/supabase/client';
+import { brand } from '@/config/brand';
 import { calcTotalConComision, formatMXN } from '@/lib/fees';
 import { PLAN_POR_ID, PLANES } from '@/lib/plans';
 import { NIVELES, type Concept, type Group, type Profile, type School, type SchoolNivel, type SchoolPlan } from '@/lib/types';
@@ -352,7 +353,7 @@ function PerfilEscuela({
               <Badge variant="brand">Crecimiento y Pro</Badge>
             </div>
             <p className="text-[12px] text-muted-foreground">
-              Días del mes en que COLEKTA reenvía el link a quien no ha pagado.
+              Días del mes en que {brand.name} reenvía el link a quien no ha pagado.
             </p>
             <div className="flex flex-wrap gap-1.5">
               {[1, 3, 5, 8, 10, 15, 20, 25].map((d) => (
@@ -784,7 +785,7 @@ function Integraciones({
     <div>
       <Seccion
         titulo="Mercado Pago"
-        descripcion="Con tu propio access token, el dinero de las colegiaturas cae directo a la cuenta de tu escuela. COLEKTA nunca lo toca."
+        descripcion={`Con tu propio access token, el dinero de las colegiaturas cae directo a la cuenta de tu escuela. ${brand.name} nunca lo toca.`}
         acciones={
           <Button asChild size="sm" variant="outline">
             <a
@@ -865,7 +866,7 @@ function Integraciones({
 
       <Seccion
         titulo="WhatsApp Cloud API"
-        descripcion="Sin estas credenciales COLEKTA sigue funcionando: los mensajes quedan en cola listos para mandarse a mano. Con ellas, el envío es automático."
+        descripcion="Sin estas credenciales Kolek sigue funcionando: los mensajes quedan en cola listos para mandarse a mano. Con ellas, el envío es automático."
         acciones={
           <Button asChild size="sm" variant="outline">
             <a href="https://developers.facebook.com/apps" target="_blank" rel="noreferrer">
@@ -1097,7 +1098,7 @@ function Equipo({
                   className="mt-4"
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `Entra a COLEKTA con:\nCorreo: ${credenciales.email}\nContraseña: ${credenciales.password}`,
+                      `Entra a ${brand.name} con:\nCorreo: ${credenciales.email}\nContraseña: ${credenciales.password}`,
                     );
                     toast.success('Credenciales copiadas');
                   }}

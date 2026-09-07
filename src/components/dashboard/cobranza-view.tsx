@@ -48,6 +48,7 @@ import {
 } from '@/components/ui/select';
 import { StatusBadge } from '@/components/dashboard/status-badge';
 import { EmptyState, IlustraBusqueda, IlustraPagos } from '@/components/empty-state';
+import { brand } from '@/config/brand';
 import { formatMXN } from '@/lib/fees';
 import {
   cicloLabel,
@@ -576,7 +577,7 @@ export function CobranzaView({
                 <EmptyState
                   icon={<IlustraPagos />}
                   title={`Todavía no hay pagos de ${cicloLabel(ciclo)}`}
-                  description="Genera el ciclo y COLEKTA crea el link de cada alumno activo con su monto y su fecha de vencimiento."
+                  description={`Genera el ciclo y ${brand.name} crea el link de cada alumno activo con su monto y su fecha de vencimiento.`}
                   action={acciones}
                 />
               )
